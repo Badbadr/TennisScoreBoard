@@ -1,4 +1,4 @@
-package org.example;
+package org.example.edu;
 
 import org.example.model.Player;
 import org.example.util.HibernateUtil;
