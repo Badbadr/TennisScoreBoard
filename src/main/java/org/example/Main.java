@@ -1,44 +1,12 @@
 package org.example;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-import org.example.model.Match;
-import org.example.model.Player;
-import org.example.repository.MatchRepository;
-import org.example.repository.PlayerRepository;
-import org.example.service.MatchService;
-import org.example.util.HibernateUtil;
-import org.hibernate.Session;
+import org.example.repository.jpa.PlayerRepository;
+import org.example.repository.redis.OngoingMatchRepository;
+import org.example.service.OngoingMatchService;
 
 public class Main {
     public static void main(String[] args) {
-//        Player player1 = new Player();
-//        player1.setName("Ivan Ivanovich");
-//
-//        Player player2 = new Player();
-//        player2.setName("Petr Petrovich");
-//
-//        Match match = new Match();
-//        match.setPlayer1(player1);
-//        match.setPlayer2(player2);
-//
-//        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-//            session.beginTransaction();
-//            session.persist(match);
-//            session.getTransaction().commit();
-//            System.out.println("Match saved");
-//        }
-//
-//        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-//            CriteriaBuilder cb = session.getCriteriaBuilder();
-//            CriteriaQuery<Match> cr = cb.createQuery(Match.class);
-//            Root<Match> root = cr.from(Match.class);
-//            CriteriaQuery<Match> query = cr.select(root).where(cb.equal(root.get("player1").get("name"), "Ivan Ivanovich"));
-//            System.out.println(session.createQuery(query).getResultList());
-//        }
-
-        MatchService matchService = new MatchService(new MatchRepository(), new PlayerRepository());
+        OngoingMatchService matchService = new OngoingMatchService(new OngoingMatchRepository(), new PlayerRepository());
         System.out.println(matchService.createMatch("Test1 player1", "Test1 player2"));
     }
 }

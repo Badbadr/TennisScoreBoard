@@ -1,11 +1,6 @@
 package org.example.edu;
 
-import org.example.model.Player;
-import org.example.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import java.sql.Date;
+import org.example.model.jpa.Player;
 
 public class HibernateAnnotationMain {
 

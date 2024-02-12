@@ -3,9 +3,9 @@ package org.example.edu;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import org.example.model.Match;
-import org.example.model.Player;
-import org.example.util.HibernateUtil;
+import org.example.model.jpa.Match;
+import org.example.model.jpa.Player;
+import org.example.repository.config.HibernateConfig;
 import org.hibernate.Session;
 
 public class Main {
@@ -20,14 +20,14 @@ public class Main {
         match.setPlayer1(player1);
         match.setPlayer2(player2);
 
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session = HibernateConfig.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.persist(match);
             session.getTransaction().commit();
             System.out.println("Match saved");
         }
 
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session = HibernateConfig.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Match> cr = cb.createQuery(Match.class);
             Root<Match> root = cr.from(Match.class);

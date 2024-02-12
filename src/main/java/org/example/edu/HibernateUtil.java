@@ -1,6 +1,6 @@
 package org.example.edu;
 
-import org.example.model.Player;
+import org.example.model.jpa.Player;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

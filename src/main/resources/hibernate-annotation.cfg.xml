@@ -18,7 +18,7 @@
         <!-- Mapping with model class containing annotations -->
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="org.example.model.Player"/>
-        <mapping class="org.example.model.Match"/>
+        <mapping class="org.example.model.jpa.Player"/>
+        <mapping class="org.example.model.jpa.Match"/>
     </session-factory>
 </hibernate-configuration>

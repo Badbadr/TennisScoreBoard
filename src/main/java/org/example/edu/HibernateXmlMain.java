@@ -1,9 +1,7 @@
 package org.example.edu;
 
-import org.example.util.HibernateUtil;
+import org.example.repository.config.HibernateConfig;
 import org.hibernate.Session;
-
-import java.sql.Date;
 
 public class HibernateXmlMain {
 
@@ -13,7 +11,7 @@ public class HibernateXmlMain {
 //        emp.setRole("CEO");
 //        emp.setInsertTime(new Date(System.currentTimeMillis()));
         //Get Session
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateConfig.getSessionFactory().openSession();
         //start transaction
         session.beginTransaction();
         //Save the Model object

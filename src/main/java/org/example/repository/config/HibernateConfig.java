@@ -1,9 +1,9 @@
-package org.example.util;
+package org.example.repository.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtil {
+public class HibernateConfig {
 
     private static SessionFactory sessionFactory;
 
