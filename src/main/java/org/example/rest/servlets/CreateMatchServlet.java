@@ -12,6 +12,7 @@ import org.example.repository.jpa.PlayerRepository;
 import org.example.repository.redis.OngoingMatchRepository;
 import org.example.service.FinishedMatchesPersistenceService;
 import org.example.service.OngoingMatchService;
+import org.example.util.Mapper;
 
 import java.io.IOException;
 
@@ -36,7 +37,6 @@ public class CreateMatchServlet extends HttpServlet {
         String player1Name = req.getParameter("player1");
         String player2Name = req.getParameter("player2");
         OngoingMatch match = matchService.createMatch(player1Name, player2Name);
-        resp.setStatus(HttpServletResponse.SC_PERMANENT_REDIRECT);
-        resp.sendRedirect("http://localhost:8080/app/match-score?uuid=" + match.getId());
+        resp.getWriter().write(Mapper.mapper.writeValueAsString(match));
     }
 }

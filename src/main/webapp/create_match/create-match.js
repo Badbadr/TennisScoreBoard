@@ -9,7 +9,8 @@ $(document).ready(function() {
             type: "POST",
             data: $("#create-match-form").serialize(),
             success: function(data, textStatus, request) {
-                console.log(data)
+                json = JSON.parse(data)
+                window.location.replace('http://localhost:8080/app/match-score?uuid=' + json.id)
             },
             error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);

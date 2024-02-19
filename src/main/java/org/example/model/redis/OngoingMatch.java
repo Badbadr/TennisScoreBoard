@@ -30,10 +30,10 @@ public class OngoingMatch {
             playerScore2.increaseScore(playerScore1);
         }
 
-        if (playerScore1.isFinished()) {
+        if (playerScore1.isWinner()) {
             winner = player1;
         }
-        if (playerScore2.isFinished()) {
+        if (playerScore2.isWinner()) {
             winner = player2;
         }
     }

@@ -30,29 +30,6 @@ public class MatchScoreServlet extends HttpServlet {
     );
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        Map<String, String> params = Arrays.stream(req.getQueryString().split("&")).map(param -> param.split("="))
-                .collect(Collectors.toMap(param -> param[0], param -> param[1]));
-
-        String id = params.get("uuid");
-        if (id == null) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-        try {
-            OngoingMatch match = matchService.getMatchById(UUID.fromString(params.get("uuid")));
-            if (match == null) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-            resp.getWriter()
-                .write(Mapper.mapper.writeValueAsString(match));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Map<String, String> params = Arrays.stream(req.getQueryString().split("&")).map(param -> param.split("="))
                 .collect(Collectors.toMap(param -> param[0], param -> param[1]));
@@ -63,7 +40,7 @@ public class MatchScoreServlet extends HttpServlet {
             return;
         }
 
-        boolean isFirstWin = Boolean.parseBoolean(params.get("isFirstWin"));
+        boolean isFirstWin = Boolean.parseBoolean(req.getParameter("isFirstWin"));
         try {
             OngoingMatch match = matchService.updateScore(UUID.fromString(id), isFirstWin);
             resp.getWriter()

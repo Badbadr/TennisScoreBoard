@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.beans.Transient;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,6 +20,9 @@ public class PlayerScore {
     private boolean isTiebreak = false;
     private int tiebreakPoints = 0;
     private boolean isFinished = false;
+    private boolean isWinner = false;
+    private String points = POSSIBLE_POINTS.get(currentPointPtr);
+
     public String getPoints() {
         return POSSIBLE_POINTS.get(currentPointPtr);
     }
@@ -91,6 +95,8 @@ public class PlayerScore {
         sets++;
         if (sets == 2) {
             isFinished = true;
+            isWinner = true;
+            other.setWinner(false);
             other.setFinished(true);
         }
     }
