@@ -1,5 +1,7 @@
 package org.example.rest.servlets;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,8 +18,14 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/api/matches")
 @NoArgsConstructor
 public class MatchesServlet extends HttpServlet {
-    private final FinishedMatchesPersistenceService finishedMatchesPersistenceService =
-            new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository());
+    private FinishedMatchesPersistenceService finishedMatchesPersistenceService;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ServletContext ctx = getServletContext();
+        finishedMatchesPersistenceService = (FinishedMatchesPersistenceService) ctx.getAttribute("finishedMatchesPersistenceService");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         Map<String, String> params = QueryParamsCollector.collect(req.getQueryString());

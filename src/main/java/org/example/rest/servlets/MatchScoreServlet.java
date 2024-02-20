@@ -1,6 +1,6 @@
 package org.example.rest.servlets;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,11 +25,13 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = "/api/match-score")
 @NoArgsConstructor
 public class MatchScoreServlet extends HttpServlet {
-    private final OngoingMatchService matchService = new OngoingMatchService(
-        new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository()),
-        new OngoingMatchRepository(),
-        new PlayerRepository()
-    );
+    private OngoingMatchService matchService;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ServletContext ctx = getServletContext();
+        matchService = (OngoingMatchService) ctx.getAttribute("ongoingMatchService");
+    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) {

@@ -4,7 +4,7 @@ let pageSize = 10;
 let totalPages;
 
 $(document).ready(function() {
-    $("body").append($("<div id=\"pageable\" style=\"display: flex;flex-direction: row;\"></div>").html(
+    $("#content").append($("<div id=\"pageable\" style=\"display: flex; flex-direction: row;\"></div>").html(
          "<input id=\"select-page-size\" style=\"width: 25px;\"type=\"text\" value=\""+pageSize+"\" name=\"pageSize\">"+
          "<button id=\"prev-page\" type=\"submit\"> < </button>"+
          "<div id=\"page\">" + page + "</div>"+

@@ -1,5 +1,6 @@
 package org.example.rest.servlets;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,17 +20,12 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/api/new-match")
 @NoArgsConstructor
 public class CreateMatchServlet extends HttpServlet {
-    private final OngoingMatchService matchService = new OngoingMatchService(
-        new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository()),
-        new OngoingMatchRepository(),
-        new PlayerRepository()
-    );
-
+    private OngoingMatchService matchService;
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("-------------------");
-        System.out.println(req.getQueryString());
-        System.out.println("-------------------");
+    public void init() throws ServletException {
+        super.init();
+        ServletContext ctx = getServletContext();
+        OngoingMatchService matchService = (OngoingMatchService) ctx.getAttribute("ongoingMatchService");
     }
 
     @Override

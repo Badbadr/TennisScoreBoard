@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/matches", "/new-match", "/match-score"})
+@WebServlet(urlPatterns = {"", "/matches", "/new-match", "/match-score"})
 @NoArgsConstructor
 public class UiServlet extends HttpServlet {
     @Override
@@ -20,6 +20,7 @@ public class UiServlet extends HttpServlet {
             case "/matches" -> req.getRequestDispatcher("/matches/matches.html").forward(req, resp);
             case "/new-match" -> req.getRequestDispatcher("/create_match/create-match.html").forward(req, resp);
             case "/match-score" -> req.getRequestDispatcher("/match_score/match-score.html").forward(req, resp);
+            default -> req.getRequestDispatcher("/index/index.html").forward(req, resp);
         }
     }
 }

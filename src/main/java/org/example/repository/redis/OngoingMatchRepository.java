@@ -9,7 +9,6 @@ import redis.clients.jedis.Jedis;
 import java.util.UUID;
 
 public class OngoingMatchRepository {
-
     public OngoingMatch save(OngoingMatch match) {
         try (Jedis jedis = RedisConfig.jedisPool.getResource()) {
             jedis.set(match.getId().toString(), Mapper.mapper.writeValueAsString(match));
