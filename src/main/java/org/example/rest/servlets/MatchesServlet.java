@@ -6,13 +6,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import org.example.repository.jpa.MatchRepository;
+import org.example.repository.jpa.PlayerRepository;
 import org.example.service.FinishedMatchesPersistenceService;
 import org.example.util.Mapper;
 
 @WebServlet(urlPatterns = "/api/matches")
 @NoArgsConstructor
 public class MatchesServlet extends HttpServlet {
-    private final FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService(new MatchRepository());
+    private final FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository());
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {

@@ -19,14 +19,14 @@ public class Match {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "player1", referencedColumnName = "id")
     private Player player1;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "player2", referencedColumnName = "id")
     private Player player2;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 }

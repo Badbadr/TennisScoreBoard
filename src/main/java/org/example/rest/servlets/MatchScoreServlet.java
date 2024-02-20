@@ -1,5 +1,6 @@
 package org.example.rest.servlets;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,13 +25,33 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class MatchScoreServlet extends HttpServlet {
     private final OngoingMatchService matchService = new OngoingMatchService(
-        new FinishedMatchesPersistenceService(new MatchRepository()),
+        new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository()),
         new OngoingMatchRepository(),
         new PlayerRepository()
     );
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        Map<String, String> params = Arrays.stream(req.getQueryString().split("&")).map(param -> param.split("="))
+                .collect(Collectors.toMap(param -> param[0], param -> param[1]));
+
+        String id = params.get("uuid");
+        if (id == null) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        try {
+            resp.getWriter()
+                .write(Mapper.mapper.writeValueAsString(matchService.getMatchById(UUID.fromString(id))));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Map<String, String> params = Arrays.stream(req.getQueryString().split("&")).map(param -> param.split("="))
                 .collect(Collectors.toMap(param -> param[0], param -> param[1]));
 

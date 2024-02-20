@@ -53,6 +53,7 @@ public class OngoingMatchService {
         match.updateScore(isFirstWin);
         if (match.getWinner() != null) {
             finishedMatchesPersistenceService.save(match);
+            ongoingMatchRepository.delete(match.getId());
             return match;
         } else {
             return ongoingMatchRepository.save(match);
@@ -61,5 +62,9 @@ public class OngoingMatchService {
 
     public OngoingMatch getMatchById(UUID id) {
         return ongoingMatchRepository.get(id);
+    }
+
+    public void delete(UUID id) {
+        ongoingMatchRepository.delete(id);
     }
 }

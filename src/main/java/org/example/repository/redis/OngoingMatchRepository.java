@@ -24,6 +24,14 @@ public class OngoingMatchRepository {
             return Mapper.mapper.readValue(jedis.get(id.toString()), OngoingMatch.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void delete(UUID id) {
+        try (Jedis jedis = RedisConfig.jedisPool.getResource()) {
+            jedis.del(id.toString());
         }
     }
 }

@@ -24,6 +24,9 @@ public class PlayerRepository {
             } catch (NoResultException e) {
                 return null;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 }

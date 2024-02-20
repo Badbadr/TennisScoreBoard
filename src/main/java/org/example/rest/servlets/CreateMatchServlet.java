@@ -20,7 +20,7 @@ import java.io.IOException;
 @NoArgsConstructor
 public class CreateMatchServlet extends HttpServlet {
     private final OngoingMatchService matchService = new OngoingMatchService(
-        new FinishedMatchesPersistenceService(new MatchRepository()),
+        new FinishedMatchesPersistenceService(new MatchRepository(), new PlayerRepository()),
         new OngoingMatchRepository(),
         new PlayerRepository()
     );
