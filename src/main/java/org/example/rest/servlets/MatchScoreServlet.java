@@ -14,6 +14,7 @@ import org.example.repository.redis.OngoingMatchRepository;
 import org.example.service.FinishedMatchesPersistenceService;
 import org.example.service.OngoingMatchService;
 import org.example.util.Mapper;
+import org.example.util.QueryParamsCollector;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,8 +33,7 @@ public class MatchScoreServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        Map<String, String> params = Arrays.stream(req.getQueryString().split("&")).map(param -> param.split("="))
-                .collect(Collectors.toMap(param -> param[0], param -> param[1]));
+        Map<String, String> params = QueryParamsCollector.collect(req.getQueryString());
 
         String id = params.get("uuid");
         if (id == null) {

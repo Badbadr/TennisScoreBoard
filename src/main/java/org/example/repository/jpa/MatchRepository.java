@@ -26,13 +26,16 @@ public class MatchRepository {
         }
     }
 
-    public List<Match> findAll() {
+    public List<Match> findAll(int page, int pageSize) {
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Match> cr = cb.createQuery(Match.class);
             Root<Match> root = cr.from(Match.class);
             CriteriaQuery<Match> query = cr.select(root);
-            return session.createQuery(query).getResultList();
+            SelectionQuery<Match> q = session.createQuery(query);
+            q.setFirstResult((page - 1) * pageSize);
+            q.setMaxResults(pageSize);
+            return q.list();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -42,10 +45,10 @@ public class MatchRepository {
     public int count() {
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Match> cr = cb.createQuery(Match.class);
+            CriteriaQuery<Long> cr = cb.createQuery(Long.class);
             Root<Match> root = cr.from(Match.class);
-            CriteriaQuery<Match> query = cr.select(root);
-            return session.createQuery(query).getFetchSize();
+            CriteriaQuery<Long> query = cr.select(cb.count(root));
+            return session.createQuery(query).getSingleResult().intValue();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -64,7 +67,7 @@ public class MatchRepository {
         }
     }
 
-    public List<Match> findMatchesByPlayer1OrPlayer2(String name, int pageSize, int page) {
+    public List<Match> findMatchesByPlayer1OrPlayer2(String name, int page, int pageSize) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Match> cr = cb.createQuery(Match.class);
@@ -77,10 +80,9 @@ public class MatchRepository {
                     )
             ).orderBy(cb.desc(root.get("id")));
             SelectionQuery<Match> q = session.createQuery(query);
-            q.setFirstResult(0);
-            q.setFetchSize(10);
+            q.setFirstResult((page - 1) * pageSize);
+            q.setMaxResults(pageSize);
             return q.list();
-
         }
     }
 }
