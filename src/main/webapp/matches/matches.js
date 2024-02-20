@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     $('#select-page-size').on('input', function() {
         pageSize = $(this).val();
+        requestMatches(1, pageSize);
     });
 
     requestMatches(page, pageSize);
