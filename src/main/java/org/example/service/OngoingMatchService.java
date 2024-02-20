@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.example.model.jpa.Player;
 import org.example.model.redis.OngoingMatch;
 import org.example.model.redis.PlayerScore;
+import org.example.repository.config.HibernateConfig;
 import org.example.repository.jpa.PlayerRepository;
 import org.example.repository.redis.OngoingMatchRepository;
-import org.example.repository.config.HibernateConfig;
 import org.hibernate.Session;
 
 import java.util.UUID;
@@ -53,7 +53,7 @@ public class OngoingMatchService {
         match.updateScore(isFirstWin);
         if (match.getWinner() != null) {
             finishedMatchesPersistenceService.save(match);
-            ongoingMatchRepository.delete(match.getId());
+            delete(match.getId());
             return match;
         } else {
             return ongoingMatchRepository.save(match);

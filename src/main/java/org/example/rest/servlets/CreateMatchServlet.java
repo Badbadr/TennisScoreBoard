@@ -25,7 +25,7 @@ public class CreateMatchServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         ServletContext ctx = getServletContext();
-        OngoingMatchService matchService = (OngoingMatchService) ctx.getAttribute("ongoingMatchService");
+        matchService = (OngoingMatchService) ctx.getAttribute("ongoingMatchService");
     }
 
     @Override

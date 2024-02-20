@@ -43,12 +43,9 @@ public class FinishedMatchesPersistenceService {
 
     public Match save(OngoingMatch finishedMatch) {
         Match match = new Match();
-        Player player1 = playerRepository.findPlayerByName(finishedMatch.getPlayer1().getName());
-        Player player2 = playerRepository.findPlayerByName(finishedMatch.getPlayer2().getName());
-        Player winner = playerRepository.findPlayerByName(finishedMatch.getWinner().getName());
-        match.setPlayer1(player1);
-        match.setPlayer2(player2);
-        match.setWinner(winner);
+        match.setPlayer1(finishedMatch.getPlayer1());
+        match.setPlayer2(finishedMatch.getPlayer2());
+        match.setWinner(finishedMatch.getWinner());
         return matchRepository.save(match);
     }
 

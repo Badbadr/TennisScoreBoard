@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
-import org.example.repository.jpa.MatchRepository;
-import org.example.repository.jpa.PlayerRepository;
 import org.example.service.FinishedMatchesPersistenceService;
 import org.example.util.Mapper;
 import org.example.util.QueryParamsCollector;
