@@ -24,4 +24,6 @@ public class Player {
     @Column(name="name", length=20)
     private String name;
 
+    private String restoreTest2;
+
 }

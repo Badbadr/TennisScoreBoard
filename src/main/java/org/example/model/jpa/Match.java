@@ -29,4 +29,6 @@ public class Match {
     @OneToOne
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
+
+    private String restoreTest;
 }
